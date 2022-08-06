@@ -1,5 +1,6 @@
 package sooper;
 
+import java.time.LocalDate;
 import sooper.contenedores.Bolsa;
 import sooper.contenedores.Caja;
 import sooper.productos.Congelado;
@@ -16,10 +17,10 @@ public class Supermercado {
         miPedido.addContenedor(caja1);
         miPedido.addContenedor(bolsa1);
 
-        IProducto manzanas = new Fresco("MNZ", 1000, 1500);
+        IProducto manzanas = new Fresco("MNZ", 1000, 1500,LocalDate.now().plusDays(20));
         IProducto helado = new Congelado("HLD", 800, 1000);
         IProducto papelWC = new Higiene("MNZ", 500, 2500);
-        IProducto peras = new Fresco("PER", 800, 1200);
+        IProducto peras = new Fresco("PER", 800, 1200,LocalDate.now().plusDays(20));
 
         IContenedor contPeras = miPedido.addProducto(peras);
         IContenedor contHelado = miPedido.addProducto(helado);
