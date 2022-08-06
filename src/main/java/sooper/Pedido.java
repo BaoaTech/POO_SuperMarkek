@@ -9,23 +9,31 @@ public class Pedido implements IPedido {
     private Set<IContenedor> contenedores;
 
     public Pedido(String referencia) {
-        this.referencia = referencia; 
+        this.referencia = referencia;
         this.contenedores = new HashSet<IContenedor>();
     }
 
     @Override
     public String getReferencia() {
-        return referencia; 
+        return referencia;
     }
 
     @Override
     public Set<IProducto> getProductos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Set<IProducto> productos = null;
+        for (IContenedor c : contenedores) {
+            if (productos == null) {
+                productos = c.getProductos();
+            } else {
+                productos.addAll(c.getProductos());
+            }
+        }
+        return productos;
     }
 
     @Override
     public Set<IContenedor> getContenedores() {
-        return contenedores; 
+        return contenedores;
     }
 
     @Override
@@ -35,26 +43,23 @@ public class Pedido implements IPedido {
 
     @Override
     public IContenedor addProducto(IProducto producto) {
-        for(IContenedor contenedor:contenedores){
-            if(contenedor.meter(producto))
-            return contenedor;
+        for (IContenedor contenedor : contenedores) {
+            if (contenedor.meter(producto)) {
+                return contenedor;
+            }
         }
         return null;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb=new StringBuilder();
-        sb.append("Pedido: "+ referencia + "\n" );
-        for(IContenedor contenedor:contenedores){
-            sb.append("\t"+contenedor+"\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido: " + referencia + "\n");
+        for (IContenedor contenedor : contenedores) {
+            sb.append("\t" + contenedor + "\n");
         }
-        
-        return sb.toString(); 
+
+        return sb.toString();
     }
-    
-    
-    
-    
 
 }
