@@ -2,12 +2,14 @@ package sooper.productos;
 
 import sooper.IContenedor;
 import sooper.IProducto;
+import sooper.contenedores.Contenedor;
 
 public abstract class Productos implements IProducto {
 
     private String referencia;
     private int peso;
     private int volumen;
+    private IContenedor contenedor;
 
     public Productos(String referencia, int peso, int volumen) {
         this.referencia = referencia;
@@ -32,7 +34,13 @@ public abstract class Productos implements IProducto {
 
     @Override
     public boolean tengoEspacio(IContenedor contenedor) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return contenedor.volumenDisponible() > volumen;
+    }
+
+    @Override
+    public void meter(Contenedor contenedor) {
+        this.contenedor = contenedor;
+
     }
 
 }
